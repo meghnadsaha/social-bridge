@@ -8,6 +8,11 @@ const InstagramStoriesAppWithBootstrap = () => {
   const [selectedStoryIndex, setSelectedStoryIndex] = useState(null); // Track the selected profile index
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // Track the current slide index for a profile
 
+
+  const [isLastSlide, setIsLastSlide] = useState(false); // Track if we are at the last slide
+  const [isLastProfile, setIsLastProfile] = useState(false); // Track if we are at the last profile
+  const [animationClass, setAnimationClass] = useState(""); // Track the animation class
+
   // Stories array with multiple slides for each user
   //2. Modify the Modal to Handle Multiple Slides for a Single Story
   const stories = [
@@ -118,47 +123,54 @@ const InstagramStoriesAppWithBootstrap = () => {
     setShowModal(true); // Show the modal
   };
 
-  // Called when a story ends (last slide of the profile)
-  const handleStoryEnd = () => {
-    // Check if we are at the last slide of the current profile
-    if (currentSlideIndex === stories[selectedStoryIndex].slides.length - 1) {
-      // Close the modal after the last slide of the last story
-      setShowModal(false);
+// Custom handle story end logic
+const handleStoryEnd = () => {
+  const currentProfile = stories[selectedStoryIndex];
+  const lastSlide = currentSlideIndex === currentProfile.slides.length - 1;
+  const lastProfile = selectedStoryIndex === stories.length - 1;
+  console.log("lastSlide ", lastSlide);
+  console.log("lastProfile ", lastProfile);
 
-      // After closing, move to the next profile's story
-      setTimeout(() => {
-        handleNextProfile(); // Loop to the next profile (with wraparound)
-        setShowModal(true); // Open the modal again for the next profile
-      }, 300); // Delay before opening the next profile's story
+  setIsLastSlide(lastSlide);
+  setIsLastProfile(lastProfile);
+
+  if (lastSlide) {
+    setCurrentSlideIndex(currentSlideIndex + 1);
+    if (lastProfile) {
+      // Close the modal after the last slide of the last profile
+      setShowModal(false);
     } else {
-      // Otherwise, just go to the next slide in the current profile
-      setCurrentSlideIndex(currentSlideIndex + 1);
+      // Add the animation class before moving to the next profile
+      // setAnimationClass("animate__animated animate__flipInY");
+      setTimeout(() => {
+        setCurrentSlideIndex(currentSlideIndex + 1);
+
+        handleNextProfile(); // Go to the next profile
+        // setAnimationClass(""); // Reset the animation class after transition
+      }, 300);
     }
-  };
+  } else {
+    // Move to the next slide in the current profile
+    setCurrentSlideIndex(currentSlideIndex + 1);
+  }
+};
 
   // Handle closing the modal when the close button is clicked (on the last story)
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-   // Custom onStoryEnd logic
-   const customOnStoryEnd = (isLastSlide) => {
-    // If it's the last slide of the last story
-    if (isLastSlide) {
-      setShowModal(false); // Close the modal
-      setTimeout(() => {
-        // handleNextProfile(); // Go to the next profile after a short delay
-        // setShowModal(true); // Open the modal for the next profile
-      }, 300);
-    } else {
-      // If it's not the last slide, just move to the next slide
-      // setCurrentSlideIndex(currentSlideIndex + 1);
-    }
-  };
+
 
   return (
     <div className="container">
       <h1 className="my-4 text-center">Instagram Stories Gallery with Bootstrap</h1>
+      <p>selectedStoryIndex {selectedStoryIndex}</p>
+      <p>currentSlideIndex {currentSlideIndex}</p>
+
+      {/* Displaying the value of isLastSlide */}
+      <p>{`Is this the last slide? ${isLastSlide ? "Yes" : "No"}`}</p>
+      <p>{`Is this the last isLastProfile? ${isLastProfile ? "Yes" : "No"}`}</p>
 
       <Row className="g-4 justify-content-center">
         {stories.map((story, index) => (
@@ -238,7 +250,7 @@ const InstagramStoriesAppWithBootstrap = () => {
                 height="100%" // Ensure full height of the parent container
                 currentSlideIndex={currentSlideIndex} // Pass currentSlideIndex to the Stories component
                 // onStoryEnd={handleStoryEnd} // Trigger when a story ends
-                onStoryEnd={(isLastSlide) => customOnStoryEnd(isLastSlide)} // Use the custom handler
+                onStoryEnd={(isLastSlide) => handleStoryEnd(isLastSlide)} // Use the custom handler
               />
             )}
           </div>
