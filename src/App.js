@@ -7,7 +7,6 @@ import { faReact } from "@fortawesome/free-brands-svg-icons";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BiHome, BiCog } from "react-icons/bi";
 import MyComponent from "./component/MyComponent";
-import "tiny-slider/dist/tiny-slider.css";
 import ChoicesComponent from "./component/ChoicesComponent";
 import MyForm from "./component/MyForm";
 import "dropzone/dist/dropzone.css";
@@ -17,7 +16,6 @@ import DatePicker from "./component/DatePicker";
 // In src/index.js or src/App.js
 import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
-import InstagramStoriesApp from "./component/InstagramStoriesApp";
 import InstagramStoriesAppWithBootstrapCarousel from "./component/InstagramStoriesAppWithBootstrapCarousel";
 import UncontrolledExample from "./component/UncontrolledExample";
 
