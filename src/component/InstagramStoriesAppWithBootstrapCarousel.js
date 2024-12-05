@@ -252,17 +252,17 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
                     )}
                     {slide.type !== 'video' && (
                       <div
-                        // style={{
-                        //   position: 'absolute',
-                        //   bottom: 10,
-                        //   left: '50%',
-                        //   transform: 'translateX(-50%)',
-                        //   backgroundColor: '#000',
-                        //   color: '#fff',
-                        //   padding: '10px 20px',
-                        //   borderRadius: '20px',
-                        //   cursor: 'pointer',
-                        // }}
+                        style={{
+                          position: 'absolute',
+                          bottom: 10,
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          backgroundColor: '#000',
+                          color: '#fff',
+                          padding: '10px 20px',
+                          borderRadius: '20px',
+                          cursor: 'pointer',
+                        }}
                         className="custom-image"
 
                         onClick={() => handleSeeMore(stories[selectedStoryIndex].seeMoreLink)}
