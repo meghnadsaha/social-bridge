@@ -1,0 +1,52 @@
+.containerFonts {
+  font-family: 'Roboto', sans-serif;
+}
+
+.my-slider {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.my-slider .tns-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: #ccc;
+}
+
+.glightbox .gdesc {
+  background-color: rgba(0, 0, 0, 0.7);  /* Dark background for descriptions */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.glightbox .gdesc.top {
+  top: 0;
+}
+
+.glightbox .gdesc.bottom {
+  bottom: 0;
+}
+
+.glightbox .gdesc.left,
+.glightbox .gdesc.right {
+  position: absolute;
+  padding: 20px;
+}
+.glightbox .gdesc {
+  background-color: rgba(0, 0, 0, 0.7);  /* Dark background for descriptions */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.glightbox .gdesc.top {
+  top: 0;
+}
+
+.glightbox .gdesc.bottom {
+  bottom: 0;
+}
