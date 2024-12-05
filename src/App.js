@@ -8,10 +8,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { BiHome, BiCog } from "react-icons/bi";
 import MyComponent from "./component/MyComponent";
 import "tiny-slider/dist/tiny-slider.css";
-import MySlider from "./component/MySlider";
 import ChoicesComponent from "./component/ChoicesComponent";
 import MyForm from "./component/MyForm";
-import MyGallery from "./component/MyGallery";
 import "dropzone/dist/dropzone.css";
 import FileUpload from "./component/FileUpload";
 import "flatpickr/dist/flatpickr.css"; // Import the CSS for flatpickr
@@ -19,9 +17,7 @@ import DatePicker from "./component/DatePicker";
 // In src/index.js or src/App.js
 import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
-import InstagramStoriesAppWithhBootstrap from "./component/InstagramStoriesAppWithhBootstrap";
 import InstagramStoriesApp from "./component/InstagramStoriesApp";
-import InstagramStoriesAppWithhGlightbox from "./component/InstagramStoriesAppWithhGlightbox";
 import InstagramStoriesAppWithBootstrapCarousel from "./component/InstagramStoriesAppWithBootstrapCarousel";
 import UncontrolledExample from "./component/UncontrolledExample";
 
@@ -68,8 +64,7 @@ function App() {
       <hr />
       <MyComponent />
 
-      <hr />
-      <MySlider />
+    
       <hr />
       <ChoicesComponent />
       <hr />
