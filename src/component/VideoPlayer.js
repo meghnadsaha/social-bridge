@@ -19,7 +19,7 @@ const VideoPlayer = () => {
   return (
     <div>
       <video id="player" controls>
-        <source src="https://cdn.plyr.io/static/demo/BigBuckBunny.mp4" type="video/mp4" />
+        <source src="https://videos.pexels.com/video-files/6578139/6578139-uhd_2732_1318_30fps.mp4" type="video/mp4" />
       </video>
     </div>
   );

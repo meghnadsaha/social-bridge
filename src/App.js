@@ -4,33 +4,34 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { BiHome, BiCog } from 'react-icons/bi';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { BiHome, BiCog } from "react-icons/bi";
 import MyComponent from "./component/MyComponent";
-import 'tiny-slider/dist/tiny-slider.css';
+import "tiny-slider/dist/tiny-slider.css";
 import MySlider from "./component/MySlider";
 import ChoicesComponent from "./component/ChoicesComponent";
 import MyForm from "./component/MyForm";
 import MyGallery from "./component/MyGallery";
-import 'dropzone/dist/dropzone.css';
+import "dropzone/dist/dropzone.css";
 import FileUpload from "./component/FileUpload";
-import 'flatpickr/dist/flatpickr.css';  // Import the CSS for flatpickr
+import "flatpickr/dist/flatpickr.css"; // Import the CSS for flatpickr
 import DatePicker from "./component/DatePicker";
 // In src/index.js or src/App.js
-import 'plyr/dist/plyr.css';  // Import Plyr's CSS
+import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
+import InstagramStoriesApp from "./component/ZuckApp";
+// import ZuckApp from "./component/ZuckApp";
 
 function App() {
   return (
     <div className="container">
+      <hr />
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
-     
-
-      <hr/>
+      <hr />
       <p className="containerFonts">Hello, world!</p>
       <button className="btn btn-primary">Click Me</button>
 
-      <hr/>
+      <hr />
       <i className="fas fa-camera"></i>
       <i className="fab fa-react"></i>
       <br />
@@ -40,42 +41,42 @@ function App() {
         <FontAwesomeIcon icon={faReact} />
       </div>
 
-      <hr/>
+      <hr />
       <div>
-      <i className="bi bi-house-door"></i> {/* Home icon */}
-      <i className="bi bi-gear"></i> {/* Gear icon */}
-    </div>
+        <i className="bi bi-house-door"></i> {/* Home icon */}
+        <i className="bi bi-gear"></i> {/* Gear icon */}
+      </div>
 
-    <hr/>
-    <div>
-      <BiHome /> {/* Home icon */}
-      <BiCog /> {/* Gear icon */}
-    </div>
+      <hr />
+      <div>
+        <BiHome /> {/* Home icon */}
+        <BiCog /> {/* Gear icon */}
+      </div>
 
-    <hr/>
-    <MyComponent/>
+      <hr />
+      <MyComponent />
 
-    <hr/>
-    <MySlider />
-     <hr/>
-      <ChoicesComponent/>
-      <hr/>
+      <hr />
+      <MySlider />
+      <hr />
+      <ChoicesComponent />
+      <hr />
 
-      <MyForm/>
+      <MyForm />
 
-      <hr/>
-      <MyGallery/>
+      <hr />
+      <MyGallery />
 
-      <hr/>
+      <hr />
 
       {/* <FileUpload/> */}
-      <DatePicker/>
+      <DatePicker />
 
-      <hr/>
-      <VideoPlayer/>
-      {/* <StoryComponent/> */}
-<p>assets/vendor/zuck.js/dist/zuck.min.css is not working </p>
-  <hr/>
+      <hr />
+      <VideoPlayer />
+
+      <hr />
+      <InstagramStoriesApp />
     </div>
   );
 }
