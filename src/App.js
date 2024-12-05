@@ -22,6 +22,7 @@ import VideoPlayer from "./component/VideoPlayer";
 import InstagramStoriesAppWithhBootstrap from "./component/InstagramStoriesAppWithhBootstrap";
 import InstagramStoriesApp from "./component/InstagramStoriesApp";
 import InstagramStoriesAppWithhGlightbox from "./component/InstagramStoriesAppWithhGlightbox";
+import InstagramStoriesAppWithBootstrapCarousel from "./component/InstagramStoriesAppWithBootstrapCarousel";
 
 function App() {
   return (
@@ -29,9 +30,10 @@ function App() {
       <hr />
       {/* <InstagramStoriesApp /> */}
       <hr />
-      <InstagramStoriesAppWithhBootstrap />
+      {/* <InstagramStoriesAppWithhBootstrap /> */}
       <hr />
       {/* <InstagramStoriesAppWithhGlightbox /> */}
+      <InstagramStoriesAppWithBootstrapCarousel/>
       <hr />
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
       <hr />
