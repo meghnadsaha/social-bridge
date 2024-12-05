@@ -143,8 +143,8 @@ const handleStoryEnd = () => {
       // Add the animation class before moving to the next profile
       // setAnimationClass("animate__animated animate__flipInY");
       setTimeout(() => {
-        setCurrentSlideIndex(currentSlideIndex + 1);
-
+        setCurrentSlideIndex(0);  // Reset to the first slide of next profile
+        // setCurrentSlideIndex(currentSlideIndex + 1);
         handleNextProfile(); // Go to the next profile
         // setAnimationClass(""); // Reset the animation class after transition
       }, 300);
@@ -220,6 +220,7 @@ const handleStoryEnd = () => {
         className="animate__animated animate__zoomIn modalCss"  // Add animate__zoomIn class
       >
         <Modal.Header closeButton />
+        
         <Modal.Body style={{ height: '100vh', position: 'relative' }} scrollable={false}>
           <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
             {selectedStoryIndex !== null && (
