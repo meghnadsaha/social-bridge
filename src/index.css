@@ -51,6 +51,36 @@
   bottom: 0;
 }
 .modal-content {
-  background-color: #fff0 !important;
+  background-color: #fff0 !important; 
+   color: #fff !important;
+}
 
+/* Custom backdrop style */
+.modal-backdrop {
+  background-color: #000000f7 !important;
+    opacity: 0.95 !important;
+}
+
+.btn-close{
+  position: relative;
+}
+.me{
+  /* margin-left: 135% !important; */
+}
+
+.modal-header {
+
+  /* padding: 0 !important; */
+  border-bottom: none !important;
+  border-top-left-radius: 0% !important;
+  border-top-right-radius: 0% !important;
+}
+
+/* CSS to ensure the modal is not draggable */
+.modal-dialog {
+  user-select: none !important;
+  pointer-events: auto !important; /* Ensure it's not blocking interaction */
+  touch-action: none !important;   /* Prevent touch events that might cause dragging */
+  -webkit-user-drag: none !important; /* Disable dragging in WebKit browsers */
+  -moz-user-drag: none !important;    /* Disable dragging in Firefox */
 }
