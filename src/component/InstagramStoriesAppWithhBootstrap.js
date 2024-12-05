@@ -5,7 +5,8 @@ import 'animate.css'; // Import Animate.css if you installed it via npm
 
 const InstagramStoriesAppWithBootstrap = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedStory, setSelectedStory] = useState(null);
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState(null); // Track the selected profile index
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // Track the current slide index for a profile
 
   // Stories array with multiple slides for each user
   //2. Modify the Modal to Handle Multiple Slides for a Single Story
@@ -63,7 +64,7 @@ const InstagramStoriesAppWithBootstrap = () => {
     },
     {
       header: {
-        heading: 'Jhon  Doe',
+        heading: 'John  Doe',
         subheading: '10 mins ago',
         profileImage: 'https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200',
       },
@@ -88,26 +89,71 @@ const InstagramStoriesAppWithBootstrap = () => {
           muted: true,
         }
       ],
-      seeMoreLink: 'https://www.example.com/full-story/jane-smith',
+      seeMoreLink: 'https://www.example.com/full-story/john-doe',
     },
     // Add more stories here...
   ];
 
-  const handleNext = () => {
-    console.log('Next story');
+  const handleNextProfile = () => {
+    // Loop back to the first profile when you go beyond the last one
+    const nextProfileIndex = (selectedStoryIndex + 1) % stories.length;
+    setSelectedStoryIndex(nextProfileIndex);
+    setCurrentSlideIndex(0); // Reset slide index when moving to next profile
   };
 
-  const handlePrevious = () => {
-    console.log('Previous story');
+  const handlePreviousProfile = () => {
+    // Loop back to the last profile when you go before the first one
+    const prevProfileIndex = (selectedStoryIndex - 1 + stories.length) % stories.length;
+    setSelectedStoryIndex(prevProfileIndex);
+    setCurrentSlideIndex(0); // Reset slide index when moving to previous profile
   };
 
   const handleSeeMore = (link) => {
     window.open(link, '_blank');
   };
 
-  const handleProfileImageClick = (story) => {
-    setSelectedStory(story);
-    setShowModal(true);
+  const handleProfileImageClick = (index) => {
+    setSelectedStoryIndex(index); // Set the selected profile index
+    setCurrentSlideIndex(0); // Reset slide index when opening a profile
+    setShowModal(true); // Show the modal
+  };
+
+  // Called when a story ends (last slide of the profile)
+  const handleStoryEnd = () => {
+    // Check if we are at the last slide of the current profile
+    if (currentSlideIndex === stories[selectedStoryIndex].slides.length - 1) {
+      // Close the modal after the last slide of the last story
+      setShowModal(false);
+
+      // After closing, move to the next profile's story
+      setTimeout(() => {
+        handleNextProfile(); // Loop to the next profile (with wraparound)
+        setShowModal(true); // Open the modal again for the next profile
+      }, 300); // Delay before opening the next profile's story
+    } else {
+      // Otherwise, just go to the next slide in the current profile
+      setCurrentSlideIndex(currentSlideIndex + 1);
+    }
+  };
+
+  // Handle closing the modal when the close button is clicked (on the last story)
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+   // Custom onStoryEnd logic
+   const customOnStoryEnd = (isLastSlide) => {
+    // If it's the last slide of the last story
+    if (isLastSlide) {
+      setShowModal(false); // Close the modal
+      setTimeout(() => {
+        // handleNextProfile(); // Go to the next profile after a short delay
+        // setShowModal(true); // Open the modal for the next profile
+      }, 300);
+    } else {
+      // If it's not the last slide, just move to the next slide
+      // setCurrentSlideIndex(currentSlideIndex + 1);
+    }
   };
 
   return (
@@ -127,7 +173,7 @@ const InstagramStoriesAppWithBootstrap = () => {
                 height: '80px',
                 margin: 'auto',
               }}
-              onClick={() => handleProfileImageClick(story)}
+              onClick={() => handleProfileImageClick(index)} // Pass index to handle click
             >
               <img
                 src={story.header.profileImage}
@@ -153,7 +199,7 @@ const InstagramStoriesAppWithBootstrap = () => {
       {/* Modal to show selected Instagram story */}
       <Modal
         show={showModal}
-        onHide={() => setShowModal(false)}
+        onHide={handleCloseModal}  // Use the custom close function
         animation={true}  // Enable animation
         size="lg"
         centered
@@ -164,36 +210,43 @@ const InstagramStoriesAppWithBootstrap = () => {
         <Modal.Header closeButton />
         <Modal.Body style={{ height: '100vh', position: 'relative' }} scrollable={false}>
           <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
-            <Stories
-              stories={selectedStory?.slides.map((slide) => ({
-                ...slide,
-                seeMore: () => (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: 10,
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      backgroundColor: '#000',
-                      color: '#fff',
-                      padding: '10px 20px',
-                      borderRadius: '20px',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => handleSeeMore(selectedStory.seeMoreLink)}
-                  >
-                    See More
-                  </div>
-                ),
-              }))}
-              defaultInterval={1500}
-              width="100%"  // Make width 100% of the modal
-              height="100%" // Ensure full height of the parent container
-              onNext={handleNext}
-              onPrevious={handlePrevious}
-            />
+            {selectedStoryIndex !== null && (
+              <Stories
+                stories={stories[selectedStoryIndex]?.slides.map((slide) => ({
+                  ...slide,
+                  seeMore: () => (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        backgroundColor: '#000',
+                        color: '#fff',
+                        padding: '10px 20px',
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => handleSeeMore(stories[selectedStoryIndex].seeMoreLink)}
+                    >
+                      See More
+                    </div>
+                  ),
+                }))}
+                defaultInterval={1500}
+                width="100%"  // Make width 100% of the modal
+                height="100%" // Ensure full height of the parent container
+                currentSlideIndex={currentSlideIndex} // Pass currentSlideIndex to the Stories component
+                // onStoryEnd={handleStoryEnd} // Trigger when a story ends
+                onStoryEnd={(isLastSlide) => customOnStoryEnd(isLastSlide)} // Use the custom handler
+              />
+            )}
           </div>
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handlePreviousProfile}>Previous Profile</Button>
+          <Button variant="primary" onClick={handleNextProfile}>Next Profile</Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
