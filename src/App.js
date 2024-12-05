@@ -19,16 +19,20 @@ import DatePicker from "./component/DatePicker";
 // In src/index.js or src/App.js
 import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
-import InstagramStoriesApp from "./component/ZuckApp";
-// import ZuckApp from "./component/ZuckApp";
+import InstagramStoriesAppWithhBootstrap from "./component/InstagramStoriesAppWithhBootstrap";
+import InstagramStoriesApp from "./component/InstagramStoriesApp";
+import InstagramStoriesAppWithhBootstrapV2 from "./component/InstagramStoriesAppWithhBootstrapV2";
 
 function App() {
   return (
     <div className="container">
-
-<hr />
-      <InstagramStoriesApp />
       <hr />
+      {/* <InstagramStoriesApp /> */}
+      <hr />
+      <InstagramStoriesAppWithhBootstrap />
+      <hr />
+      {/* <InstagramStoriesAppWithhBootstrapV2/> */}
+      <hr/>
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
       <hr />
       <p className="containerFonts">Hello, world!</p>
@@ -77,7 +81,7 @@ function App() {
 
       <hr />
       <VideoPlayer />
-{/* 
+      {/* 
       <hr />
       <InstagramStoriesApp /> */}
     </div>

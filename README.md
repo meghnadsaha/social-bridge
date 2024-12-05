@@ -1992,3 +1992,217 @@ You can customize the component's look and feel by styling it as needed using CS
 This is a very basic setup. `react-insta-stories` provides more customization options such as event handlers for actions like `onStoryEnd` or `onStoryChange`, which you can use to trigger specific actions when the story changes or ends.
 
 You can check the [official documentation](https://www.npmjs.com/package/react-insta-stories) for more advanced features and examples!
+
+
+
+
+### 2
+To achieve your goal, you'll need to implement a few changes:
+
+1. **Profile Grid**: We'll use Bootstrap to create a vertical list of profile images (stacked vertically in a column).
+2. **GLightbox**: GLightbox will be used to open the story content in a lightbox when a profile image is clicked.
+3. **Instagram Stories**: When a profile image is clicked, the corresponding story content will be shown in the lightbox.
+
+Here's a step-by-step guide to achieve this:
+
+### 1. **Install Required Packages**
+
+To get started, make sure you have these libraries installed:
+
+- **Bootstrap** for layout.
+- **GLightbox** for lightbox functionality.
+
+You can install them using npm:
+
+```bash
+npm install bootstrap react-insta-stories glightbox
+```
+
+Then import the necessary styles into your main `index.js` or `App.js` file:
+
+```js
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'glightbox/dist/css/glightbox.css';
+```
+
+### 2. **Create the Profile Grid & GLightbox Integration**
+
+Here’s how you can create the layout and integrate GLightbox with your Instagram Stories.
+
+### **InstagramStoriesApp Component**
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import Stories from 'react-insta-stories';
+import GLightbox from 'glightbox';
+import { Row, Col, Card } from 'react-bootstrap';
+
+const InstagramStoriesApp = () => {
+  const [lightbox, setLightbox] = useState(null); // To store GLightbox instance
+
+  const stories = [
+    {
+      url: 'https://images.pexels.com/photos/29086857/pexels-photo-29086857/free-photo-of-young-graduate-celebrating-achievement-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      header: {
+        heading: 'John Doe',
+        subheading: '5 mins ago',
+        profileImage: 'https://images.pexels.com/photos/28704748/pexels-photo-28704748/free-photo-of-capturing-a-beautiful-matcha-latte-art-on-mobile.jpeg?auto=compress&cs=tinysrgb&w=1200'
+      },
+      duration: 5000,
+      autoplay: true,
+      muted: true,
+      seeMoreLink: 'https://www.example.com/full-story/john-doe',
+    },
+    {
+      url: 'https://videos.pexels.com/video-files/8448263/8448263-hd_1080_1920_24fps.mp4',
+      type: 'video',
+      header: {
+        heading: 'Jane Smith',
+        subheading: '10 mins ago',
+        profileImage: 'https://images.pexels.com/photos/4996772/pexels-photo-4996772.jpeg?auto=compress&cs=tinysrgb&w=1200'
+      },
+      duration: 7000,
+      autoplay: true,
+      muted: true,
+      seeMoreLink: 'https://www.example.com/full-story/jane-smith',
+    },
+    // Add more stories as needed
+  ];
+
+  // Initialize GLightbox only once
+  useEffect(() => {
+    const lightboxInstance = GLightbox({
+      selector: '.glightbox',
+      openEffect: 'zoom',
+      closeEffect: 'fade',
+      width: '80%',
+    });
+    setLightbox(lightboxInstance); // Store the GLightbox instance in state
+  }, []);
+
+  const handleProfileClick = (index) => {
+    if (lightbox) {
+      const story = stories[index];
+      const lightboxContent = `
+        <div class="glightbox">
+          <div class="story-header">
+            <h5>${story.header.heading}</h5>
+            <small>${story.header.subheading}</small>
+          </div>
+          <img src="${story.url}" alt="Story Image" />
+          <div class="story-footer">
+            <a href="${story.seeMoreLink}" target="_blank" class="btn btn-link">See More</a>
+          </div>
+        </div>
+      `;
+      lightbox.open({ content: lightboxContent });
+    }
+  };
+
+  return (
+    <div>
+      <h1 className="text-center my-4">Instagram Stories</h1>
+      <Row>
+        {stories.map((story, index) => (
+          <Col key={index} sm={6} md={4} lg={3} className="mb-4">
+            <Card className="profile-card" onClick={() => handleProfileClick(index)}>
+              <Card.Img variant="top" src={story.header.profileImage} alt="Profile" />
+              <Card.Body>
+                <Card.Title>{story.header.heading}</Card.Title>
+                <Card.Text>{story.header.subheading}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+
+      {/* Stories Section */}
+      <div className="stories-container mt-4">
+        <Stories
+          stories={stories.map((story) => ({
+            ...story,
+            seeMore: () => (
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 10,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  padding: '10px 20px',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                }}
+                onClick={() => window.open(story.seeMoreLink, '_blank')}
+              >
+                See More
+              </div>
+            ),
+          }))}
+          defaultInterval={1500}
+          width={432}
+          height={768}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default InstagramStoriesApp;
+
+```
+
+### **Explanation of Code:**
+
+1. **Profile Grid Layout:**
+   - We use **`Row`** and **`Col`** from Bootstrap to create a responsive grid of profile images.
+   - Each profile image is clickable and opens the respective story in a lightbox when clicked.
+
+2. **GLightbox Integration:**
+   - GLightbox is initialized when a profile image is clicked, showing the corresponding story's details.
+   - We pass the story details (like image and links) into the lightbox.
+   - You can customize the lightbox appearance and transition effects based on your preference.
+
+3. **Instagram Stories:**
+   - The stories section uses **`react-insta-stories`** to display Instagram-style stories, and the `seeMore` button lets users navigate to a link (the full story).
+
+4. **Responsive Design:**
+   - The profile grid is fully responsive, and Bootstrap will handle the layout adjustments based on screen size.
+
+### 3. **Styling (Optional)**
+
+You can add some additional CSS for the profile cards and other elements to fine-tune the look and feel.
+
+```css
+.profile-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: scale(1.05);
+}
+
+.stories-container {
+  padding: 20px;
+}
+
+.story-header h5 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.story-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+```
+
+### 4. **Final Thoughts**
+
+- **GLightbox** provides a smooth, customizable lightbox experience.
+- The use of **Bootstrap** ensures that the profile grid is responsive and adjusts well across devices.
+- The **Instagram Stories** are displayed using `react-insta-stories`, and clicking on a profile image shows the story content in a lightbox.
+
+This setup should work well for your requirements. You can extend it further by adding more stories, customizing the lightbox appearance, and refining the layout.
