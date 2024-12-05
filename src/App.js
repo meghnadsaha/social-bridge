@@ -25,6 +25,9 @@ import InstagramStoriesApp from "./component/ZuckApp";
 function App() {
   return (
     <div className="container">
+
+<hr />
+      <InstagramStoriesApp />
       <hr />
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
       <hr />
@@ -74,9 +77,9 @@ function App() {
 
       <hr />
       <VideoPlayer />
-
+{/* 
       <hr />
-      <InstagramStoriesApp />
+      <InstagramStoriesApp /> */}
     </div>
   );
 }
