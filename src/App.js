@@ -23,10 +23,13 @@ import InstagramStoriesAppWithhBootstrap from "./component/InstagramStoriesAppWi
 import InstagramStoriesApp from "./component/InstagramStoriesApp";
 import InstagramStoriesAppWithhGlightbox from "./component/InstagramStoriesAppWithhGlightbox";
 import InstagramStoriesAppWithBootstrapCarousel from "./component/InstagramStoriesAppWithBootstrapCarousel";
+import UncontrolledExample from "./component/UncontrolledExample";
 
 function App() {
   return (
     <div className="container">
+
+      {/* <UncontrolledExample/> */}
       <hr />
       {/* <InstagramStoriesApp /> */}
       <hr />

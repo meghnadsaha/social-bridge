@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Row, Col, Button, Carousel } from 'react-bootstrap';
 import 'animate.css'; // Import Animate.css if you installed it via npm
 
@@ -8,6 +8,51 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // Track the current slide index for a profile
   const [isLastSlide, setIsLastSlide] = useState(false); // Track if we are at the last slide
   const [isLastProfile, setIsLastProfile] = useState(false); // Track if we are at the last profile
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const slideCount = 3; // Total number of slides
+  const progressIntervalRef = useRef(null);
+  // Function to open the modal
+  const handleShowModal = () => setShowModal(true);
+
+
+  // Handle slide change
+  const handleSelect = (selectedIndex) => {
+    setActiveIndex(selectedIndex);
+    setProgress(0); // Reset progress when slide changes
+  };
+
+  // Progress bar update function
+  const updateProgress = () => {
+    setProgress((prevProgress) => {
+      if (prevProgress < 100) {
+        return prevProgress + 0.5; // Increment progress by 1%
+      }
+      clearInterval(progressIntervalRef.current); // Stop the interval when progress reaches 100
+      return 100;
+    });
+  };
+
+  // Start updating progress when carousel slide starts
+  useEffect(() => {
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current); // Clear any existing interval before starting a new one
+    }
+
+    // Start the interval when activeIndex changes (slide starts)
+    progressIntervalRef.current = setInterval(updateProgress, 50); // Update every 50ms
+
+    return () => {
+      // Clean up on component unmount
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+    };
+  }, [activeIndex]); // This effect runs whenever the activeIndex changes
+
+
 
   // Stories array with multiple slides for each user
   const stories = [
@@ -103,6 +148,7 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
 
       <Row className="g-4 justify-content-center">
         {stories.map((story, index) => (
+          
           <Col key={index} md={2} sm={3} xs={4}>
             <div
               className="card shadow-sm"
@@ -138,27 +184,51 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
       </Row>
 
       {/* Modal to show selected Instagram story */}
+      
       <Modal
+        fullscreen={true}
         show={showModal}
         onHide={handleCloseModal}
         animation={true}
         size="lg"
         centered
-        fullscreen="xl-down"
+        // fullscreen="xl-down"
         backdrop="true"
-        className="animate__animated animate__zoomIn modalCss"
-      >
-        <Modal.Header closeButton />
+        className="animate__animated animate__zoomIn modalCss "
         
-        <Modal.Body style={{ height: '100vh', position: 'relative' }} scrollable={false}>
-          <div className="d-flex justify-content-center align-items-center" style={{ height: '50%' }}>
+      >
+           <div className="carousel-progress-bar">
+                  <div
+                    className="progress-bar-fill"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+      
+        <Modal.Header closeButton >
+       
+          </Modal.Header>
+        
+        <Modal.Body
+        //  style={{ height: '100vh', position: 'relative' }} 
+        scrollable={false} className="modal-body-px"
+        >
+          <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
             {selectedStoryIndex !== null && (
-              <Carousel
-                activeIndex={currentSlideIndex}
-                onSelect={(index) => setCurrentSlideIndex(index)}
-                interval={1000} // Disable automatic sliding
-                indicators={true} // Disable indicators
+              <>
+         
+                <Carousel
+                // activeIndex={currentSlideIndex}
+                // onSelect={(index) => setCurrentSlideIndex(index)}
+                interval={11000} // Disable automatic sliding
+
+                // indicators={true} // Disable indicators
                 controls={true} // Disable controls
+
+
+                activeIndex={activeIndex}
+                onSelect={handleSelect}
+                indicators={false}
+                onSlide={() => setProgress(0)} // Reset progress when a slide transition starts
 
               >
                 {stories[selectedStoryIndex].slides.map((slide, index) => (
@@ -167,29 +237,34 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
                       <video
                         src={slide.url}
                         controls
-                        style={{ width: '100%', height: '100%' }}
-                      />
+                        // style={{ width: '100%', height: '100%' }}
+                        className="custom-image"
+
+                         />
                     ) : (
                       <img
                         src={slide.url}
                         alt={`Slide ${index + 1}`}
-                        className="d-block w-100"
-                        style={{ height: '100%' }}
-                      />
+                        // className="d-block w-100"
+                        // style={{ height: '100%' }} 
+                     className="custom-image"
+                        />
                     )}
                     {slide.type !== 'video' && (
                       <div
-                        style={{
-                          position: 'absolute',
-                          bottom: 10,
-                          left: '50%',
-                          transform: 'translateX(-50%)',
-                          backgroundColor: '#000',
-                          color: '#fff',
-                          padding: '10px 20px',
-                          borderRadius: '20px',
-                          cursor: 'pointer',
-                        }}
+                        // style={{
+                        //   position: 'absolute',
+                        //   bottom: 10,
+                        //   left: '50%',
+                        //   transform: 'translateX(-50%)',
+                        //   backgroundColor: '#000',
+                        //   color: '#fff',
+                        //   padding: '10px 20px',
+                        //   borderRadius: '20px',
+                        //   cursor: 'pointer',
+                        // }}
+                        className="custom-image"
+
                         onClick={() => handleSeeMore(stories[selectedStoryIndex].seeMoreLink)}
                       >
                         See More
@@ -198,13 +273,14 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
                   </Carousel.Item>
                 ))}
               </Carousel>
+             </>
             )}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button variant="secondary" onClick={handlePreviousProfile}>Previous Profile</Button>
           <Button variant="primary" onClick={handleNextProfile}>Next Profile</Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </div>
   );
