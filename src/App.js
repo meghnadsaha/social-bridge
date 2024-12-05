@@ -21,7 +21,7 @@ import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
 import InstagramStoriesAppWithhBootstrap from "./component/InstagramStoriesAppWithhBootstrap";
 import InstagramStoriesApp from "./component/InstagramStoriesApp";
-import InstagramStoriesAppWithhBootstrapV2 from "./component/InstagramStoriesAppWithhBootstrapV2";
+import InstagramStoriesAppWithhGlightbox from "./component/InstagramStoriesAppWithhGlightbox";
 
 function App() {
   return (
@@ -30,6 +30,8 @@ function App() {
       {/* <InstagramStoriesApp /> */}
       <hr />
       <InstagramStoriesAppWithhBootstrap />
+      <hr />
+      <InstagramStoriesAppWithhGlightbox />
       <hr />
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
       <hr />
@@ -70,7 +72,7 @@ function App() {
       <MyForm />
 
       <hr />
-      <MyGallery />
+      {/* <MyGallery /> */}
 
       <hr />
 
