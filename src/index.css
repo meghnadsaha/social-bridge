@@ -63,6 +63,9 @@
 
 .btn-close{
   position: relative;
+  color: #fff !important;
+background-color: #fff !important;
+opacity: 1 !important;
 }
 .me{
   /* margin-left: 135% !important; */

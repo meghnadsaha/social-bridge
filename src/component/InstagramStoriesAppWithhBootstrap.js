@@ -4,10 +4,10 @@ import { Modal, Row, Col, Button } from 'react-bootstrap';
 
 const InstagramStoriesAppWithBootstrap = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedStoryIndex, setSelectedStoryIndex] = useState(null);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [selectedStory, setSelectedStory] = useState(null);
 
   // Stories array with multiple slides for each user
+  //2. Modify the Modal to Handle Multiple Slides for a Single Story
   const stories = [
     {
       header: {
@@ -62,7 +62,7 @@ const InstagramStoriesAppWithBootstrap = () => {
     },
     {
       header: {
-        heading: 'John Doe',
+        heading: 'Jhon  Doe',
         subheading: '10 mins ago',
         profileImage: 'https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200',
       },
@@ -80,56 +80,33 @@ const InstagramStoriesAppWithBootstrap = () => {
           muted: true,
         },
         {
-          url: 'https://videos.pexels.com/video-files/9943181/9943181-sd_506_960_25fps.mp4',
+          url: 'https://videos.pexels.com/video-files/8448263/8448263-hd_1080_1920_24fps.mp4',
           type: 'video',
           duration: 7000,
           autoplay: true,
           muted: true,
         }
       ],
-      seeMoreLink: 'https://www.example.com/full-story/john-doe',
+      seeMoreLink: 'https://www.example.com/full-story/jane-smith',
     },
+    // Add more stories here...
   ];
 
-  // Handle the selection of a story
-  const handleProfileImageClick = (index) => {
-    setSelectedStoryIndex(index);
-    setCurrentSlideIndex(0); // Reset to the first slide of the selected story
-    setShowModal(true);
-  };
-
-  // Handle the Next Slide
   const handleNext = () => {
-    if (selectedStoryIndex === null) return; // Ensure a story is selected
-    const story = stories[selectedStoryIndex];
-    const nextSlideIndex = (currentSlideIndex + 1) % story.slides.length;
-    setCurrentSlideIndex(nextSlideIndex);
+    console.log('Next story');
   };
 
-  // Handle the Previous Slide
   const handlePrevious = () => {
-    if (selectedStoryIndex === null) return; // Ensure a story is selected
-    const story = stories[selectedStoryIndex];
-    const prevSlideIndex = (currentSlideIndex - 1 + story.slides.length) % story.slides.length;
-    setCurrentSlideIndex(prevSlideIndex);
+    console.log('Previous story');
   };
 
-  // Handle the 'See More' click
   const handleSeeMore = (link) => {
     window.open(link, '_blank');
   };
 
-  // Handle the story change (Next/Previous Story)
-  const handleChangeStory = (direction) => {
-    if (direction === 'next') {
-      setSelectedStoryIndex((prevIndex) => (prevIndex + 1) % stories.length);
-      setCurrentSlideIndex(0); // Reset to the first slide of the next story
-    } else if (direction === 'prev') {
-      setSelectedStoryIndex((prevIndex) =>
-        prevIndex === 0 ? stories.length - 1 : prevIndex - 1
-      );
-      setCurrentSlideIndex(0); // Reset to the first slide of the previous story
-    }
+  const handleProfileImageClick = (story) => {
+    setSelectedStory(story);
+    setShowModal(true);
   };
 
   return (
@@ -149,7 +126,7 @@ const InstagramStoriesAppWithBootstrap = () => {
                 height: '80px',
                 margin: 'auto',
               }}
-              onClick={() => handleProfileImageClick(index)}
+              onClick={() => handleProfileImageClick(story)}
             >
               <img
                 src={story.header.profileImage}
@@ -185,41 +162,34 @@ const InstagramStoriesAppWithBootstrap = () => {
         <Modal.Header closeButton />
         <Modal.Body style={{ height: '100vh', position: 'relative' }} scrollable={false}>
           <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
-            {/* Ensure the selected story and its slides exist before rendering */}
-            {selectedStoryIndex !== null && stories[selectedStoryIndex] && (
-              <Stories
-                stories={stories[selectedStoryIndex].slides.map((slide, index) => ({
-                  ...slide,
-                  seeMore: () => (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: 10,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        backgroundColor: '#000',
-                        color: '#fff',
-                        padding: '10px 20px',
-                        borderRadius: '20px',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => handleSeeMore(stories[selectedStoryIndex].seeMoreLink)}
-                    >
-                      See More
-                    </div>
-                  ),
-                }))}
-                defaultInterval={1500}  // Duration between slides
-                width="100%"  // Make width 100% of the modal
-                height="100%" // Ensure full height of the parent container
-                onNext={handleNext}
-                onPrevious={handlePrevious}
-                onEnd={() => {
-                  // Close the modal after the last slide of the last story
-                  setShowModal(false);
-                }}
-              />
-            )}
+            <Stories
+              stories={selectedStory?.slides.map((slide) => ({
+                ...slide,
+                seeMore: () => (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: 10,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      backgroundColor: '#000',
+                      color: '#fff',
+                      padding: '10px 20px',
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleSeeMore(selectedStory.seeMoreLink)}
+                  >
+                    See More
+                  </div>
+                ),
+              }))}
+              defaultInterval={1500}
+              width="100%"  // Make width 100% of the modal
+              height="100%" // Ensure full height of the parent container
+              onNext={handleNext}
+              onPrevious={handlePrevious}
+            />
           </div>
         </Modal.Body>
       </Modal>

@@ -31,8 +31,6 @@ function App() {
       <hr />
       <InstagramStoriesAppWithhBootstrap />
       <hr />
-      {/* <InstagramStoriesAppWithhBootstrapV2/> */}
-      <hr/>
       <h1 className="text-center mt-5">Hello, Bootstrap 5.3.3 in React!</h1>
       <hr />
       <p className="containerFonts">Hello, world!</p>
