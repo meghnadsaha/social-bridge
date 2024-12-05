@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Stories from 'react-insta-stories';
 import { Modal, Row, Col, Button } from 'react-bootstrap';
+import 'animate.css'; // Import Animate.css if you installed it via npm
 
 const InstagramStoriesAppWithBootstrap = () => {
   const [showModal, setShowModal] = useState(false);
@@ -158,6 +159,7 @@ const InstagramStoriesAppWithBootstrap = () => {
         centered
         fullscreen="xl-down"  // Fullscreen below the 'sm' breakpoint (576px)
         backdrop="true"  // Enables the backdrop (will close the modal when clicked)
+        className="animate__animated animate__zoomIn modalCss"  // Add animate__zoomIn class
       >
         <Modal.Header closeButton />
         <Modal.Body style={{ height: '100vh', position: 'relative' }} scrollable={false}>
