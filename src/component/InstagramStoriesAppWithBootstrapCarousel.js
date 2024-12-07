@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Modal, Row, Col, Button, Carousel } from "react-bootstrap";
-import "animate.css"; // Import Animate.css if you installed it via npm
 
 const InstagramStoriesAppWithBootstrapCarousel = () => {
   const [showModal, setShowModal] = useState(false);
@@ -111,6 +110,118 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
       ],
       seeMoreLink: "https://www.example.com/full-story/john-doe",
     },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+    {
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },{
+      header: {
+        heading: "John Doe",
+        subheading: "5 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/28704748/pexels-photo-28704748/free-photo-of-capturing-a-beautiful-matcha-latte-art-on-mobile.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/29086857/pexels-photo-29086857/free-photo-of-young-graduate-celebrating-achievement-outdoors.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },{
+      header: {
+        heading: "John Doe",
+        subheading: "10 mins ago",
+        profileImage:
+          "https://images.pexels.com/photos/5262903/pexels-photo-5262903.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      },
+      slides: [
+        {
+          url: "https://images.pexels.com/photos/7679888/pexels-photo-7679888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        }
+      ],
+      seeMoreLink: "https://www.example.com/full-story/john-doe",
+    },
+
+    
     // Add more stories here...
   ];
 
@@ -148,18 +259,14 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
         Instagram Stories Gallery with Bootstrap
       </h1>
 
-      <Row className="g-4 justify-content-center">
+      <div
+        className="g-4  stories-square stories carousel ">
         {stories.map((story, index) => (
-          <Col key={index} md={2} sm={3} xs={4}>
+          <div key={index} className="mx-1 d-inline-block">
             <div
-              className="card shadow-sm"
+              className="card shadow-sm story seen overflow-hidden rounded-3"
               style={{
                 cursor: "pointer",
-                borderRadius: "50%",
-                overflow: "hidden",
-                width: "80px",
-                height: "80px",
-                margin: "auto",
               }}
               onClick={() => handleProfileImageClick(index)}
             >
@@ -167,22 +274,15 @@ const InstagramStoriesAppWithBootstrapCarousel = () => {
                 src={story.header.profileImage}
                 alt={story.header.heading}
                 className="card-img-top"
-                style={{
-                  borderRadius: "50%",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  border: "4px solid #fff",
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                }}
               />
             </div>
-            <div className="text-center mt-2">
-              <h6 className="mb-0">{story.header.heading}</h6>
+
+            <div className="text-center  position-absolute left-0 bottom-0 p-3 text-white ">
+              <p className="mbn-9 fw-normal">{story.header.heading}</p>
             </div>
-          </Col>
+          </div>
         ))}
-      </Row>
+      </div>
 
       {/* Modal to show selected Instagram story */}
 

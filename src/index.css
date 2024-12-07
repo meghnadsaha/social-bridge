@@ -132,4 +132,29 @@ opacity: 1 !important;
   height: auto;        /* Adjust height proportionally */
 }
 
-
+.stories.carousel {
+  white-space: nowrap;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+.stories-square.stories.carousel .story {
+  border-radius: 0;
+  height: 150px !important;
+  position: relative;
+  width: 120px !important;
+  max-width: inherit !important;
+  margin-bottom: 4px;
+}
+.stories .story.seen {
+  opacity: 0.5; 
+}
+.stories.carousel .story:first-child {
+  margin-left: 0;
+}
+.stories.carousel {
+  white-space: nowrap;
+}
+.mbn-9 {
+  margin-bottom: -9px !important;
+}
