@@ -24,7 +24,7 @@ import Layout from "./component/Layout";
 function App() {
   return (
     <div className="container">
-      <h1>Dynamic Tab Switching via Dropdown</h1>
+      <h1>Implemented Dynamic Tab Switching with React Router for Navigation</h1>
       <Layout/>
       {/* <DropdownTabsV2 /> */}
 
