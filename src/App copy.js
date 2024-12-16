@@ -18,15 +18,10 @@ import "plyr/dist/plyr.css"; // Import Plyr's CSS
 import VideoPlayer from "./component/VideoPlayer";
 import InstagramStoriesAppWithBootstrapCarousel from "./component/InstagramStoriesAppWithBootstrapCarousel";
 import UncontrolledExample from "./component/UncontrolledExample";
-import DropdownTabsV2 from "./component/DropdownTabsV2";
-import Layout from "./component/Layout";
 
 function App() {
   return (
     <div className="container">
-      <h1>Dynamic Tab Switching via Dropdown</h1>
-      <Layout/>
-      {/* <DropdownTabsV2 /> */}
 
       {/* <UncontrolledExample/> */}
       <hr />
